@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+
+<style>
+  .form-control {
+    margin: 10px;
+  }
+</style>
+
+{% endblock css %}
+
+{% block content %}
+
+<h1>Editar atendimento</h1>
+
+<div class="row">
+  <div class="cols">
+    <form method="POST" novalidate>
+      {% csrf_token %}
+
+      {{ form.as_p }}
+
+      {{ formset.management_form }}
+
+      <div class="row">
+        <div class="cols">
+
+          <legend>Itens</legend>
+
+          {% for care_item_form in formset %}
+            <div id="care" class="form-inline">
+              <div id="item-{{ forloop.counter0 }}" class="form-group">
+                {{ care_item_form.care }}
+                {{ care_item_form.id }}
+
+                {{ care_item_form.exam.label }}
+                {{ care_item_form.exam }}
+
+                {{ care_item_form.is_done.label }}
+                {{ care_item_form.is_done }}  <!-- Os atributos hx-get, hx-swap estão definidos no forms.py -->
+              </div>
+            </div>
+          {% endfor %}
+
+        </div>
+      </div>
+
+    </form>
+
+    <a href="{% url 'exam:care_detail' form.id.value %}" class="btn btn-primary">Fechar</a>
+  </div>
+</div>
+
+{% endblock content %}

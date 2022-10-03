@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>
+  Exame médico
+  <a href="{% url 'exam:care_update' object.pk %}" class="btn btn-success">Editar</a>
+</h1>
+
+<div class="row">
+  <div class="cols">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Doutor</th>
+          <th>Paciente</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ object.doctor }}</td>
+          <td>{{ object.patient }}</td>
+        </tr>
+        <tr>
+          <th>Exame</th>
+          <th>Feito?</th>
+        </tr>
+        {% for obj in object.care_items.all %}
+          <tr>
+            <td>{{ obj.exam }}</td>
+            <td>
+              {% if obj.is_done %}
+                <span>
+                  <i class="fa fa-check" style="color: green"></i>
+                </span>
+              {% else %}
+                  <i class="fa fa-times" style="color: red"></i>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock content %}

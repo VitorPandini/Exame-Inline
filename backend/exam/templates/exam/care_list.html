@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>
+  Exames médicos
+  <a href="{% url 'exam:care_create' %}" class="btn btn-primary">Criar Atendimento</a>
+</h1>
+
+<div class="row">
+  <div class="cols">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Médico</th>
+          <th>Paciente</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for object in object_list %}
+          <tr>
+            <td>
+              <a href="{{ object.get_absolute_url }}">{{ object.doctor }}</a>
+            </td>
+            <td>{{ object.patient }}</td>
+            <td>{{ object.created }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock content %}
